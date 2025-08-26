@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Jobs Filter</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      padding: 16px;
+      width: 300px;
+      background: #f9fafb;
+      color: #111827;
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #2563eb;
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-top: 10px;
+    }
+
+    .hidden { display: none; }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+      margin-right: 10px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #d1d5db;
+      transition: .3s;
+      border-radius: 26px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #2563eb;
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      justify-content: space-between;
+    }
+
+    input[type="number"] {
+      width: 120px;
+      padding: 5px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 0.9em;
+    }
+
+    .preset-buttons {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .preset-buttons button {
+      flex: 1 1 30%;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85em;
+      font-weight: 500;
+      color: white;
+      background: #2563eb;
+      transition: background 0.2s;
+    }
+    .preset-buttons button:hover {
+      background: #1e40af;
+    }
+
+    #applyBtn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95em;
+      font-weight: 600;
+      background: #16a34a;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #applyBtn:hover {
+      background: #15803d;
+    }
+
+    #notLinkedIn {
+      text-align: center;
+      font-size: 0.95em;
+      color: #dc2626;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <h3>Filtres LinkedIn Jobs</h3>
+
+  <div id="notLinkedIn" class="hidden">
+    ⚠️ Ouvre une recherche LinkedIn Jobs pour activer l’extension.
+  </div>
+
+  <div id="linkedInControls" class="hidden card">
+    <div class="row">
+      <label class="switch">
+        <input type="checkbox" id="toggleFilter">
+        <span class="slider"></span>
+      </label>
+      <span>Activer filtres auto</span>
+    </div>
+
+    <div class="row">
+      <label for="timeFrame">Délai (sec)</label>
+      <input type="number" id="timeFrame" value="86400" step="3600">
+    </div>
+
+    <div class="preset-buttons">
+      <button data-seconds="900">15min</button>
+      <button data-seconds="3600">1h</button>
+      <button data-seconds="86400">24h</button>
+      <button data-seconds="172800">48h</button>
+      <button data-seconds="604800">7j</button>
+      <button data-seconds="2592000">30j</button>
+    </div>
+
+    <button id="applyBtn">✅ Appliquer & Rafraîchir</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
